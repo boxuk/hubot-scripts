@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "chai": "*",
+    "commit-message-checker": "^1.1.0",
     "grunt-contrib-watch": "~0.5.3",
     "grunt-mocha-test": "~0.7.0",
     "grunt-release": "~0.6.0",
