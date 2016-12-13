@@ -15,7 +15,7 @@
   "dependencies": {
     "coffee-script": "~1.6",
     "grunt": "^0.4.5",
-    "tiny-rebel-web-scraper": "^1.0.0"
+    "tiny-rebel-web-scraper": "^1.0.2"
   },
   "devDependencies": {
     "chai": "*",
