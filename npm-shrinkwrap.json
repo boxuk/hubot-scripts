@@ -1,6 +1,6 @@
 {
   "name": "hubot-taphouse",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "dependencies": {
     "coffee-script": {
       "version": "1.6.3",

@@ -1,6 +1,6 @@
 {
   "name": "hubot-taphouse",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Gets the latest beers and their stats from the taphouse beerboard.",
   "author": "Box UK <http://www.boxuk.com>",
   "license": "MIT",
