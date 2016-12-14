@@ -34,9 +34,14 @@ module.exports = (robot) ->
                 ];
 
                 drinks.forEach((drink) ->
-                    response.push(
-                      '(beer) ' + drink.name + ' [' + drink.brewery + '] - ' + drink.formattedPrice
-                    )
+                    output = '(beer) ' + drink.name + ' [' + drink.brewery + '] - '
+
+                    isHalfPint = drink.quantity == 'half'
+
+                    output = output + '½ ' if isHalfPint
+                    output = output + drink.formattedPrice
+
+                    response.push(output)
                 )
 
                 msg.send response.join('\n')
