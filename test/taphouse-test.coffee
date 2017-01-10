@@ -1,5 +1,5 @@
 Helper = require 'hubot-test-helper'
-helper = new Helper('../src/taphouse.coffee')
+helper = new Helper('../src/taphouse.js')
 chai = require 'chai'
 
 expect = chai.expect
