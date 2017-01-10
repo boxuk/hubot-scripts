@@ -29,19 +29,8 @@ module.exports = function (robot) {
                 const response = [
                     'Hey there!',
                     'The following drinks are available at Tiny Rebel (Cardiff):'
-                ];
-
-                for (const drink of drinks) {
-                    let output = `(beer) ${drink.name} [${drink.brewery}] - `;
-
-                    if (drink.quantity === 'half') {
-                        output = `${output} ½`;
-                    }
-
-                    output = `${output} ${drink.formattedPrice}`;
-
-                    response.push(output);
-                }
+                ]
+                    .concat(formatDrinks(drinks));
 
                 message.send(response.join('\n'));
             })
@@ -50,4 +39,30 @@ module.exports = function (robot) {
                 message.send(message.random(excuses));
             });
     });
+
+    /**
+     * Takes an array of drinks (from the web scraper) and parses them into an array
+     * of formatted string, ready to be returned by the robot.
+     *
+     * @param {Drink[]} drinks
+     *
+     * @returns {String[]}
+     */
+    function formatDrinks (drinks) {
+        const formattedDrinks = [];
+
+        for (const drink of drinks) {
+            let output = `(beer) ${drink.name} [${drink.brewery}] - `;
+
+            if (drink.quantity === 'half') {
+                output = `${output} ½`;
+            }
+
+            output = `${output} ${drink.formattedPrice}`;
+
+            formattedDrinks.push(output);
+        }
+
+        return formattedDrinks;
+    }
 };
