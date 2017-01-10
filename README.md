@@ -24,6 +24,12 @@ Then add **hubot-taphouse** to your `external-scripts.json`:
 user1>> @hubot what beers are available?
 Hubot> Hey there!
 At the taphouse on tap we have:
-(beer) Charlie Brown, Thornbridge, 6.2%, £2.45 ½, Specialty, (goldstar)(goldstar)(goldstar)
-Cheers! (beer)
+(beer) Charlie Brown [Thornbridge] - 6.2% - ½ £2.45
+```
+
+```
+user1>> @hubot get me drunk
+Hubot> Hey there!
+The strongest drink on tap at Tiny Rebel (Cardiff) is:
+(beer) Hadouken [Tiny Rebel Brewing Co. (Newport, South Wales)] - 7.4% - ½ £2.75
 ```

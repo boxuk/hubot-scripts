@@ -6,6 +6,7 @@
 //
 // Commands:
 //   hubot what|which beers are on|available - gets the latest beer info from the board
+//   hubot get me drunk - gets the strongest available beer
 //
 // Authors:
 //   studioromeo
@@ -40,6 +41,26 @@ module.exports = function (robot) {
             });
     });
 
+    robot.respond(/get me drunk/i, function (message) {
+        tinyRebelWebScraper.getAllDrinks('cardiff')
+            .then((drinks) => {
+                // Get the drink with the highest ABV level
+                const drink = drinks.reduce((previous, current) => (previous.abv > current.abv) ? previous : current);
+
+                const response = [
+                    'Hey there!',
+                    'The strongest drink on tap at Tiny Rebel (Cardiff) is:'
+                ]
+                    .concat(formatDrinks([drink]));
+
+                message.send(response.join('\n'));
+            })
+            .catch((error) => {
+                console.error(error);
+                message.send(message.random(excuses));
+            });
+    });
+
     /**
      * Takes an array of drinks (from the web scraper) and parses them into an array
      * of formatted string, ready to be returned by the robot.
@@ -52,7 +73,7 @@ module.exports = function (robot) {
         const formattedDrinks = [];
 
         for (const drink of drinks) {
-            let output = `(beer) ${drink.name} [${drink.brewery}] - `;
+            let output = `(beer) ${drink.name} [${drink.brewery}] - ${drink.formattedAbv} -`;
 
             if (drink.quantity === 'half') {
                 output = `${output} ½`;
