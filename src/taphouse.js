@@ -24,9 +24,16 @@ module.exports = function (robot) {
         'ZZZzzz...wha..no, drank it all, try somewhere else...zzzZZZzzzZZZzzz...'
     ];
 
-    robot.respond(/(what|which) beers are (on|available)/i, function (message) {
+    robot.respond(/(what|which) beers are (on|available) ?(\(sorted by (.+)?\))?/i, function (message) {
         tinyRebelWebScraper.getAllDrinks('cardiff')
             .then((drinks) => {
+                const sortField = message.match[4];
+                const shouldSort = Boolean(sortField);
+
+                if (shouldSort) {
+                    drinks = sortDrinks(drinks, sortField);
+                }
+
                 const response = [
                     'Hey there!',
                     'The following drinks are available at Tiny Rebel (Cardiff):'
@@ -62,8 +69,30 @@ module.exports = function (robot) {
     });
 
     /**
+     * Sort an array of drinks by the specified sort field.
+     *
+     * @param {Drink[]} drinks
+     * @param {string} sortField
+     *
+     * @returns {Drink[]}
+     */
+    function sortDrinks (drinks, sortField) {
+        return drinks.sort((a, b) => {
+            if (a[sortField] < b[sortField]) {
+                return -1;
+            }
+
+            if (a[sortField] > b[sortField]) {
+                return 1;
+            }
+
+            return 0;
+        });
+    }
+
+    /**
      * Takes an array of drinks (from the web scraper) and parses them into an array
-     * of formatted string, ready to be returned by the robot.
+     * of formatted strings, ready to be returned by the robot.
      *
      * @param {Drink[]} drinks
      *
@@ -73,7 +102,7 @@ module.exports = function (robot) {
         const formattedDrinks = [];
 
         for (const drink of drinks) {
-            let output = `(beer) ${drink.name} [${drink.brewery}] - ${drink.formattedAbv} -`;
+            let output = `(beer) ${drink.name} [${drink.brewery}] - ${drink.style} - ${drink.formattedAbv} -`;
 
             if (drink.quantity === 'half') {
                 output = `${output} ½`;
