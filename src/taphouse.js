@@ -102,7 +102,7 @@ module.exports = function (robot) {
         const formattedDrinks = [];
 
         for (const drink of drinks) {
-            let output = `(beer) ${drink.name} [${drink.style}] - ${drink.formattedAbv} -`;
+            let output = `(beer) ${drink.name} [${drink.brewery}] - ${drink.style} - ${drink.formattedAbv} -`;
 
             if (drink.quantity === 'half') {
                 output = `${output} ½`;
