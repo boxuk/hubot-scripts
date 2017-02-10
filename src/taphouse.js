@@ -63,7 +63,7 @@ module.exports = function (robot) {
 
     /**
      * Takes an array of drinks (from the web scraper) and parses them into an array
-     * of formatted string, ready to be returned by the robot.
+     * of formatted strings, ready to be returned by the robot.
      *
      * @param {Drink[]} drinks
      *
@@ -73,7 +73,7 @@ module.exports = function (robot) {
         const formattedDrinks = [];
 
         for (const drink of drinks) {
-            let output = `(beer) ${drink.name} [${drink.brewery}] - ${drink.formattedAbv} -`;
+            let output = `(beer) ${drink.name} [${drink.style}] - ${drink.formattedAbv} -`;
 
             if (drink.quantity === 'half') {
                 output = `${output} ½`;
